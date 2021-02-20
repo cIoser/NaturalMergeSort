@@ -12,11 +12,20 @@ public class NaturalMergeSort {
         final int AUTOMATIC_DATA = 1;
         final int MANUAL_DATA = 2;
 
-        if (choice == AUTOMATIC_DATA) {
-            System.out.println("Enter number of records.");
+        Generator generator = new Generator();
+
+        if (choice == AUTOMATIC_DATA || choice == MANUAL_DATA) {
+            System.out.println("Enter number of records: ");
+            int recordsCount = input.nextInt();
+            generator.setRecordsCount(recordsCount);
         }
-        else if (choice == MANUAL_DATA) {
-            System.out.println("Enter number of records.");
+
+        if (choice == MANUAL_DATA) {
+            generator.fromKeyboard();
+
+        }
+        else if (choice == AUTOMATIC_DATA) {
+            generator.generateRandom();
         }
     }
 }
