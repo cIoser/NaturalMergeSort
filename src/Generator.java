@@ -11,7 +11,7 @@ public class Generator {
 
     public void fromKeyboard() {
         Scanner input = new Scanner(System.in);
-        Buffer buffer = new Buffer();
+        Buffer buffer = new Buffer("merge");
         Record record = new Record(0.0, 0);
 
         for (int i=1; i<=recordsCount; i++) {
@@ -27,7 +27,7 @@ public class Generator {
     }
 
     public void generateRandom() {
-        Buffer buffer = new Buffer();
+        Buffer buffer = new Buffer("merge");
         Record record = new Record(0.0, 0);
 
         final double MIN_HEIGHT = 1.50;
@@ -41,9 +41,6 @@ public class Generator {
         }
 
         buffer.write();
-        buffer.read();
-        buffer.print();
-        buffer.read();
         buffer.print();
     }
 
