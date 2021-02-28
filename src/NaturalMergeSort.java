@@ -27,5 +27,8 @@ public class NaturalMergeSort {
         else if (choice == AUTOMATIC_DATA) {
             generator.generateRandom();
         }
+
+        Coordinator cord = new Coordinator();
+        //cord.sort();
     }
 }

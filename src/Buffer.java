@@ -4,19 +4,20 @@ import java.nio.ByteBuffer;
 public class Buffer {
     private static final int DOUBLE_SIZE = 8;
     private static final int INT_SIZE = 4;
-    private final int SIZE = 25;
+    private static final int EMPTY = 0;
+    private final int SIZE = 5;
     private final String PATH = "/home/egzosted/JavaProjects/NaturalMergeSort/tmp/";
     public int position;
     private int fill;
     private int nextRecord;
-    private Record[] records;
+    private final Record[] records;
     boolean append;
-    private String filename;
+    private final String filename;
 
     public Buffer(String filename) {
         this.filename = PATH + filename;
         append = false;
-        fill = 0;
+        fill = EMPTY;
         nextRecord = 0;
         position = 0;
         records = new Record[SIZE];
@@ -50,7 +51,7 @@ public class Buffer {
         catch (IOException ex) {
             System.out.println("Buffer couldn't have been written");
         }
-        fill = 0;
+        fill = EMPTY;
     }
 
     public void read() {
@@ -76,7 +77,6 @@ public class Buffer {
                 records[i].setBMI(ByteBuffer.wrap(bytes).getDouble());
                 position += Double.BYTES;
                 fill++;
-
             }
         }
         catch (IOException ex) {
@@ -85,21 +85,39 @@ public class Buffer {
     }
 
     public Record getNext() {
-        return records[nextRecord];
+        if (fill == EMPTY) {
+            read();
+        }
+        if (nextRecord < fill) {
+            return records[nextRecord++];
+        }
+        else {
+            return new Record(-1.0, -1);
+        }
+
     }
 
     public void print() {
         read();
+        int displayCount = 0;
         for (int i=0;i<fill;i++) {
-            System.out.printf("%d\t%f\t%d\t%f\n", i, records[i].getHeight(), records[i].getWeight(), records[i].getBMI());
-
+            System.out.printf("%d\t%f\t%d\t%f\n", displayCount++, records[i].getHeight(), records[i].getWeight(), records[i].getBMI());
             if (i + 1 == fill) {
                 read();
-                i = 0;
-                if (fill == 0) {
+                i = -1;
+                if (fill == EMPTY) {
                     break;
                 }
             }
         }
+        System.out.println();
+    }
+
+    public int getNextRecord() {
+        return nextRecord;
+    }
+
+    public void setNextRecord(int nextRecord) {
+        this.nextRecord = nextRecord;
     }
 }

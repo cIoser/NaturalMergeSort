@@ -41,7 +41,6 @@ public class Generator {
         }
 
         buffer.write();
-        buffer.print();
     }
 
     public void setRecordsCount(int recordsCount) {
