@@ -1,3 +1,7 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Scanner;
 
 public class NaturalMergeSort {
@@ -27,8 +31,41 @@ public class NaturalMergeSort {
         else if (choice == AUTOMATIC_DATA) {
             generator.generateRandom();
         }
-
+        readFile("merge");
         Coordinator cord = new Coordinator();
-        //cord.sort();
+        cord.sort();
+        readFile("distributor1");
+        readFile("distributor2");
+    }
+
+    public static void readFile(String filename) {
+        final int DOUBLE_SIZE = 8;
+        final int INT_SIZE = 4;
+        filename = "/home/egzosted/JavaProjects/NaturalMergeSort/tmp/" + filename;
+        Record record = new Record(0.0, 0);
+        int endOfData = 0;
+        try (InputStream is = new FileInputStream(filename)) {
+            byte[] bytes = new byte[DOUBLE_SIZE];
+            bytes = new byte[DOUBLE_SIZE];
+            while (endOfData != -1)
+            {
+                endOfData = is.read(bytes);
+                if (endOfData == -1) {
+                    break;
+                }
+                record.setHeight(ByteBuffer.wrap(bytes).getDouble());
+                bytes = new byte[INT_SIZE];
+                is.read(bytes);
+                record.setWeight(ByteBuffer.wrap(bytes).getInt());
+                bytes = new byte[DOUBLE_SIZE];
+                is.read(bytes);
+                record.setBMI(ByteBuffer.wrap(bytes).getDouble());
+                System.out.printf("%f\t%d\t%f\n", record.getHeight(), record.getWeight(), record.getBMI());
+            }
+        }
+        catch (IOException ex) {
+            System.out.println("Buffer couldn't have been read");
+        }
+        System.out.println("---------------------------");
     }
 }

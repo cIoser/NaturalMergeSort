@@ -85,8 +85,9 @@ public class Buffer {
     }
 
     public Record getNext() {
-        if (fill == EMPTY) {
+        if (fill == EMPTY || nextRecord == SIZE) {
             read();
+            nextRecord = 0;
         }
         if (nextRecord < fill) {
             return records[nextRecord++];

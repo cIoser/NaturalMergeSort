@@ -28,7 +28,6 @@ public class Coordinator {
         }
         distributors[0].getBuffer().write();
         distributors[1].getBuffer().write();
-        
     }
 
     private void merge() {
