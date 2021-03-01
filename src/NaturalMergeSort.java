@@ -34,15 +34,14 @@ public class NaturalMergeSort {
         readFile("merge");
         Coordinator cord = new Coordinator();
         cord.sort();
-        readFile("distributor1");
-        readFile("distributor2");
+        readFile("merge");
     }
 
     public static void readFile(String filename) {
         final int DOUBLE_SIZE = 8;
         final int INT_SIZE = 4;
         filename = "/home/egzosted/JavaProjects/NaturalMergeSort/tmp/" + filename;
-        Record record = new Record(0.0, 0);
+        Record record = new Record(0.0, 1);
         int endOfData = 0;
         try (InputStream is = new FileInputStream(filename)) {
             byte[] bytes = new byte[DOUBLE_SIZE];

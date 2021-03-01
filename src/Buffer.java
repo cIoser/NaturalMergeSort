@@ -93,7 +93,7 @@ public class Buffer {
             return records[nextRecord++];
         }
         else {
-            return new Record(-1.0, -1);
+            return new Record(1.0, 0);
         }
 
     }
