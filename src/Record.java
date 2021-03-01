@@ -1,7 +1,7 @@
 public class Record {
     private double height; // height in metres
-    private int weight; // weight in metres
-    private double BMI; // BMI indicator
+    private int weight; // weight in kilos
+    private double BMI;
 
     public Record(double height, int weight) {
         this.height = height;

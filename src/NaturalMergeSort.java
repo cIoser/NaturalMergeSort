@@ -31,21 +31,26 @@ public class NaturalMergeSort {
         else if (choice == AUTOMATIC_DATA) {
             generator.generateRandom();
         }
+        else {
+            System.out.println("Unknown option, program will be closed");
+            System.exit(0);
+        }
+
         Coordinator cord = new Coordinator();
         cord.sort();
-        //readFile("merge");
+
+        printFile(Coordinator.MERGE_FILENAME);
     }
 
-    public static void readFile(String filename) {
-        final int DOUBLE_SIZE = 8;
-        final int INT_SIZE = 4;
+    public static void printFile(String filename) {
+        final int BYTES_IN_DOUBLE = 8;
+        final int BYTES_IN_INT = 4;
         filename = "/home/egzosted/JavaProjects/NaturalMergeSort/tmp/" + filename;
         Record record = new Record(0.0, 1);
         int endOfData = 0;
         int count = 0;
         try (InputStream is = new FileInputStream(filename)) {
-            byte[] bytes = new byte[DOUBLE_SIZE];
-            bytes = new byte[DOUBLE_SIZE];
+            byte[] bytes = new byte[BYTES_IN_DOUBLE];
             while (endOfData != -1)
             {
                 count++;
@@ -54,12 +59,13 @@ public class NaturalMergeSort {
                     break;
                 }
                 record.setHeight(ByteBuffer.wrap(bytes).getDouble());
-                bytes = new byte[INT_SIZE];
+                bytes = new byte[BYTES_IN_INT];
                 is.read(bytes);
                 record.setWeight(ByteBuffer.wrap(bytes).getInt());
-                bytes = new byte[DOUBLE_SIZE];
+                bytes = new byte[BYTES_IN_DOUBLE];
                 is.read(bytes);
                 record.setBMI(ByteBuffer.wrap(bytes).getDouble());
+
                 System.out.printf("%f\t%d\t%f\t%d\n", record.getHeight(), record.getWeight(), record.getBMI(), count);
             }
         }

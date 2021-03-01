@@ -2,9 +2,9 @@ import java.io.*;
 import java.nio.ByteBuffer;
 
 public class Buffer {
-    private static final int DOUBLE_SIZE = 8;
-    private static final int INT_SIZE = 4;
-    private static final int EMPTY = 0;
+    public static final int DOUBLE_SIZE = 8;
+    public static final int INT_SIZE = 4;
+    public static final int EMPTY = 0;
     private final int SIZE = 5;
     private final String PATH = "/home/egzosted/JavaProjects/NaturalMergeSort/tmp/";
     public int position;
