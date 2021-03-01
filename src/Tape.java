@@ -7,7 +7,7 @@ public class Tape {
 
     public boolean insertRun(Tape source) {
         Record mock = new Record(1.0, 0);
-        Record next;
+        Record next = new Record(1.0, 0);
         while (true) {
             next = source.buff.getNext();
             if (next.getHeight() == 1.0) {
@@ -18,7 +18,9 @@ public class Tape {
                 return false;
             }
             buff.insert(next);
-            mock = next;
+            mock.setHeight(next.getHeight());
+            mock.setWeight(next.getWeight());
+            mock.updateBMI();
         }
     }
 
@@ -30,11 +32,21 @@ public class Tape {
     }
 
     public void endRun(Tape source, Record next, Record mock) {
+        Record currentNext = next;
+        Record currentMock = mock;
         while(next.getBMI() > mock.getBMI()) {
             buff.insert(next);
             mock = next;
             next = source.buff.getNext();
         }
+
+        currentNext.setHeight(next.getHeight());
+        currentNext.setWeight(next.getWeight());
+        currentNext.updateBMI();
+
+        currentMock.setHeight(mock.getHeight());
+        currentMock.setWeight(mock.getWeight());
+        currentMock.updateBMI();
     }
 
     public boolean mergeTapes(Tape distributor1, Tape distributor2) {
@@ -71,12 +83,14 @@ public class Tape {
             else {
                 if (next1.getBMI() < next2.getBMI()) {
                     buff.insert(next1);
-                    mock1 = next1;
+                    mock1.setHeight(next1.getHeight());
+                    mock1.setWeight(next1.getWeight());
                     next1 = distributor1.buff.getNext();
                 }
                 else {
                     buff.insert(next2);
-                    mock2 = next2;
+                    mock2.setHeight(next2.getHeight());
+                    mock2.setWeight(next2.getWeight());
                     next2 = distributor2.buff.getNext();
                 }
             }

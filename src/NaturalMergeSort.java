@@ -31,10 +31,9 @@ public class NaturalMergeSort {
         else if (choice == AUTOMATIC_DATA) {
             generator.generateRandom();
         }
-        readFile("merge");
         Coordinator cord = new Coordinator();
         cord.sort();
-        readFile("merge");
+        //readFile("merge");
     }
 
     public static void readFile(String filename) {
@@ -43,11 +42,13 @@ public class NaturalMergeSort {
         filename = "/home/egzosted/JavaProjects/NaturalMergeSort/tmp/" + filename;
         Record record = new Record(0.0, 1);
         int endOfData = 0;
+        int count = 0;
         try (InputStream is = new FileInputStream(filename)) {
             byte[] bytes = new byte[DOUBLE_SIZE];
             bytes = new byte[DOUBLE_SIZE];
             while (endOfData != -1)
             {
+                count++;
                 endOfData = is.read(bytes);
                 if (endOfData == -1) {
                     break;
@@ -59,7 +60,7 @@ public class NaturalMergeSort {
                 bytes = new byte[DOUBLE_SIZE];
                 is.read(bytes);
                 record.setBMI(ByteBuffer.wrap(bytes).getDouble());
-                System.out.printf("%f\t%d\t%f\n", record.getHeight(), record.getWeight(), record.getBMI());
+                System.out.printf("%f\t%d\t%f\t%d\n", record.getHeight(), record.getWeight(), record.getBMI(), count);
             }
         }
         catch (IOException ex) {

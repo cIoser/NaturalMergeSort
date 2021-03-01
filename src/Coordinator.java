@@ -8,8 +8,11 @@ public class Coordinator {
     public void sort() {
         boolean sorted = false;
         while(!sorted) {
+            NaturalMergeSort.readFile("merge");
             phaseCount++;
             distribute();
+            NaturalMergeSort.readFile("distributor1");
+            NaturalMergeSort.readFile("distributor2");
             sorted = merge();
         }
     }
